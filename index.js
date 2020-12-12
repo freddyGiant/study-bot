@@ -1,3 +1,5 @@
+/*jshint esversion: 6*/ 
+
 const fs = require('fs');
 const commdir = './command_modules';
 const Discord = require('discord.js');
@@ -6,7 +8,6 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection(); // makes a discord.collection for all the command objs to be put into
 
 const secret = require('./secret.json');
-// const weather = require('./command_modules/temperature');
 const prefix = 's!';
 
 
@@ -36,9 +37,9 @@ const loadCommands = () => { return new Promise((resolve, reject) =>
             // requiring them in and then adding them to the Discord.collection.
         file => (command => client.commands.set(command.name, command))(require(`${commdir}/${file}`)));
         
-        resolve(`Loaded commands:\n${files}`);
+        resolve(`Loaded commands:\n${files}\n`);
     })
-)};
+);};
 
 // handles the messages
 const handleMessage = (msg) =>
@@ -67,7 +68,7 @@ const main = () =>
         client.login(secret)
         .then(n => 
             {
-                console.log(`Logged in with token ${n}`);
+                console.log(`Logged in with token ${n}\n`);
                 return new Promise(resolve => 
                     client.once('ready', () => 
                 {
