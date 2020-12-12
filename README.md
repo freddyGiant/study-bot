@@ -1,7 +1,7 @@
 # study-bot
 a bot for my got damn discord server. that is all.
 ### *todo:*
-- [ ] implement dectalk man
+- [ ] implement ~~dectalk man~~john madden
 - [ ] names if kyle lets me
 - [x] study for finals
 
