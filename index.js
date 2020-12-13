@@ -32,7 +32,6 @@ const main = () =>
     ])
     .then(() => { 
         client.on('message', handleMessage); 
-        join.joinChannelID(client, '744406467620372514').then(join.joinChannelID(client, '744406467620372514'));
     })
     .catch(e => console.log(e));
 };
