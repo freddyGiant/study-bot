@@ -1,12 +1,12 @@
 const fs = require('fs');
-const commdir = './command_modules';
 const Discord = require('discord.js');
+const stuff = require('./useful-stuff.js');
+const commdir = './command_modules';
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection(); // makes a discord.collection for all the command objs to be put into
 
 const secret = require('./secret.json');
-const join = require('./command_modules/join');
 const prefix = ';';
 
 const main = () => 
@@ -51,7 +51,8 @@ const checkQuit = () =>
 };
 
 // requires in all the cool stuff in the ./commands folder (WARNING: very cool)
-const loadCommands = () => {
+const loadCommands = () => 
+{
     console.log('Loading Commands...'); 
     return new Promise((resolve, reject) =>
         // gets list of filenames from ./commands
@@ -73,7 +74,6 @@ const handleMessage = (msg) =>
 {
     if(msg.content.startsWith(prefix) && msg.content !== prefix && !msg.author.bot)
     {
-        console.log(`Got a message: ${msg.content}`);
         // split message into each argument
         const args = msg.content.substring(1).trim().split(/\s+/);
         const command = args.shift();
