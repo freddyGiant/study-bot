@@ -3,7 +3,7 @@ const stuff = require('./../useful-stuff.js');
 const join = (client, msg, args) => 
 {
     if(args.length > 0)
-        stuff.joinChannelID(client, args[0]).then(r => stuff.joinResolve(msg, r), stuff.joinReject);
+        stuff.joinChannelID(client, msg, args[0]);
     else
         stuff.joinUser(client, msg).then(r => stuff.joinResolve(msg, r), stuff.joinReject);
 };

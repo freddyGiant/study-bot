@@ -20,15 +20,20 @@ module.exports.joinChannelID = (client, channelID) =>
     });
 };
 
-module.exports.joinChannelID = (client, channelID) =>
+module.exports.joinChannelID = (client, msg, channelID, doNotify = true) =>
 {
     channel = client.channels.cache.get(channelID);
 
-    const currentConnections = client.voice.connections;
+    console.log(`attempting to join channel ${channel.name} with ID ${channelID}...`);
 
+    const currentConnections = client.voice.connections;
     // if we're already in the channel
     if(currentConnections.size > 0 && channelID === currentConnections.values().next().value.channel.id)
-        resolve(`I'm already in ${channel.name}!`);
+    {
+        console.log('StudyBot was already in the channel. Aborting channel connection.')
+        msg.channel.send(`I'm already in ${channel.name}!`);
+        resolve();
+    }
     // if the channel doesn't exist
     else if(!channel) 
         resolve(`${channelID} is not the ID of a channel that exists!`);
@@ -36,7 +41,7 @@ module.exports.joinChannelID = (client, channelID) =>
         // otherwise, attempt to join
         channel.join().then(
             resolve(`Successfully connected to ${channel.name}!`),
-            error => reject(error));
+            error => reject(`Failed to connect to ${channelID}: ${error}`));
 }
 
 module.exports.joinUser = (client, msg) => {
