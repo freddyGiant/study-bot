@@ -9,10 +9,12 @@ client.commands = new Discord.Collection(); // makes a discord.collection for al
 const secret = require('./secret.json');
 const prefix = ';';
 
+// get test message with client.channels.cache.get('744430283482333315').messages.fetch('788965435496333342')
+
 const main = () => 
 {
     checkQuit();
-    Promise.all( // awaits both loading the commands, and logging in and warming up the bot
+    Promise.all( // awaits both loading the commands and logging in and warming up the bot
     [ 
         loadCommands()
         .then(n => console.log(n)), 
@@ -30,7 +32,8 @@ const main = () =>
                     }));
             })
     ])
-    .then(() => { 
+    .then(() => 
+    {
         client.on('message', handleMessage); 
     })
     .catch(e => console.log(e));

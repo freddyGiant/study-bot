@@ -3,9 +3,9 @@ const helpers = require('./../helpers.js');
 const join = (client, msg, args) => 
 {
     if(args.length > 0)
-        helpers.joinChannelID(client, msg, args[0]);
+        helpers.joinChannelID(client, msg, args[0], true);
     else
-        helpers.joinUser(client, msg).then(r => helpers.joinResolve(msg, r), helpers.joinReject);
+        helpers.joinUser(client, msg);
 };
 
 module.exports = 
