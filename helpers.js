@@ -34,7 +34,13 @@ module.exports.joinChannelID = (client, msg, channelID, doNotifyMember = false) 
                     response = `Joined ${channel.name}!`;
                     resolve();
                 },
-                error => reject(`Failed to connect to ${channelID}: ${error}`));
+                error => 
+                {
+                    console.log(`Failed to connect to ${channelID}: ${error}`);
+                    if(error === 'Error [VOICE_JOIN_CHANNEL]: You do not have permission to join this voice channel.')
+                        response = 'I can\'t join that channel. If this is unintended and you happen to be able, change my roles/perms to fix this';
+                    resolve();
+                });
         }  
     });
 
