@@ -43,8 +43,9 @@ module.exports.joinChannelID = (client, msg, channelID, doNotifyMember = false) 
         {
             if(doNotifyMember && response !== -1)
                 msg.channel.send(response);
-            return p;
         });
+    
+    return p;
 };
 
 module.exports.joinUser = (client, msg) => 
@@ -58,14 +59,11 @@ module.exports.findUserChannelID = (msg) =>
     const voiceChannels = msg.channel.guild.channels.cache.filter((channel) => channel.type === 'voice');
     const channelIterator = voiceChannels.values();
     let thisChannel;
-    let i = 0;
-    while(i < voiceChannels.size)
+    for(let i = 0; i < voiceChannels.size; i++)
     {
         thisChannel = channelIterator.next().value;
 
         if(thisChannel.members.has(userID))
             return thisChannel.id;
-
-        i++;
     }
 };

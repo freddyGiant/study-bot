@@ -32,8 +32,10 @@ const main = () =>
                     }));
             })
     ])
-    .then(() => 
+    .then(
+        () => 
     {
+
         client.on('message', handleMessage); 
     })
     .catch(e => console.log(e));
@@ -42,15 +44,16 @@ const main = () =>
 // checks to see if the user entered 'q'. if so, end the process.
 const checkQuit = () => 
 { 
-    process.stdin.once('data', (n) => 
-    { 
-        if(n.toString().trim() === 'q') 
-        {
-            console.log("uiting...\n");
-            process.exit(0);
-        }
-        else checkQuit(); 
-    }); 
+    process.stdin.once('data', 
+        (n) => 
+        { 
+            if(n.toString().trim() === 'q') 
+            {
+                console.log("uiting...\n");
+                process.exit(0);
+            }
+            else checkQuit(); 
+        }); 
 };
 
 // requires in all the cool stuff in the ./commands folder (WARNING: very cool)
@@ -66,7 +69,8 @@ const loadCommands = () =>
             // culls it down to js files, and iterates through them
             files.filter(file => file.endsWith('.js')).every(
                 // requiring them in and then adding them to the Discord.collection.
-                file => (commandFile => client.commands.set(commandFile.name, commandFile))(require(`${commdir}/${file}`)));
+                file => 
+                (commandFile => client.commands.set(commandFile.name, commandFile))(require(`${commdir}/${file}`)));
             
             resolve(`Loaded commands:\n${files}\n`);
         })
