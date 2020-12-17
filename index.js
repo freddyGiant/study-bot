@@ -1,6 +1,6 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const stuff = require('./useful-stuff.js');
+const helpers = require('./helpers.js');
 const commdir = './command_modules';
 
 const client = new Discord.Client();
