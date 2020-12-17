@@ -1,11 +1,11 @@
 // joins a channel based on a string channel ID
-module.exports.joinChannelID = (client, msg, channelID, doNotify = true) =>
+module.exports.joinChannelID = (client, msg, channelID, doNotifyMember = false) =>
 {
     let response = -1;
 
     const p = new Promise((resolve, reject) =>
     {
-        channel = client.channels.cache.get(channelID);
+        const channel = client.channels.cache.get(channelID);
 
         console.log(`Attempting to join channel with ID ${channelID}...`);
 
@@ -41,12 +41,31 @@ module.exports.joinChannelID = (client, msg, channelID, doNotify = true) =>
     p.finally(
         () => 
         {
-            if(doNotify && response !== -1)
+            if(doNotifyMember && response !== -1)
                 msg.channel.send(response);
             return p;
         });
 };
 
-module.exports.joinUser = (client, msg) => {
-    return joinChannelID(client, findChannel(msg.author));
+module.exports.joinUser = (client, msg) => 
+{
+    return this.joinChannelID(client, msg,this.findUserChannelID(msg));
+};
+
+module.exports.findUserChannelID = (msg) => 
+{
+    const userID = msg.author.id;
+    const voiceChannels = msg.channel.guild.channels.cache.filter((channel) => channel.type === 'voice');
+    const channelIterator = voiceChannels.values();
+    let thisChannel;
+    let i = 0;
+    while(i < voiceChannels.size)
+    {
+        thisChannel = channelIterator.next().value;
+
+        if(thisChannel.members.has(userID))
+            return thisChannel.id;
+
+        i++;
+    }
 };

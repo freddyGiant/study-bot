@@ -1,11 +1,11 @@
-const stuff = require('./../useful-stuff.js');
+const helpers = require('./../helpers.js');
 
 const join = (client, msg, args) => 
 {
     if(args.length > 0)
-        stuff.joinChannelID(client, msg, args[0]);
+        helpers.joinChannelID(client, msg, args[0], true);
     else
-        stuff.joinUser(client, msg).then(r => stuff.joinResolve(msg, r), stuff.joinReject);
+        helpers.joinUser(client, msg);
 };
 
 module.exports = 
