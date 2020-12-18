@@ -1,6 +1,5 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const helpers = require('./helpers.js');
 const commdir = './command_modules';
 
 const client = new Discord.Client();
@@ -34,6 +33,7 @@ const main = () =>
     ])
     .then(() => 
     {
+
         client.on('message', handleMessage); 
     })
     .catch(e => console.log(e));
@@ -47,7 +47,7 @@ const checkQuit = () =>
         if(n.toString().trim() === 'q') 
         {
             console.log("uiting...\n");
-            process.exit(0);
+            client.commands.get('disconnect').disconnectAll(client).then(() => process.exit(0));
         }
         else checkQuit(); 
     }); 
@@ -64,9 +64,9 @@ const loadCommands = () =>
             if(err !== null) reject(`There was a FileSystemError loading commands: ${err}`);
 
             // culls it down to js files, and iterates through them
-            files.filter(file => file.endsWith('.js')).every(
+            files.filter(file => file.endsWith('.js')).every(file => 
                 // requiring them in and then adding them to the Discord.collection.
-                file => (commandFile => client.commands.set(commandFile.name, commandFile))(require(`${commdir}/${file}`)));
+                (commandFile => client.commands.set(commandFile.name, commandFile))(require(`${commdir}/${file}`)));
             
             resolve(`Loaded commands:\n${files}\n`);
         })
