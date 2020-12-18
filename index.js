@@ -1,6 +1,5 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const helpers = require('./helpers.js');
 const commdir = './command_modules';
 
 const client = new Discord.Client();
@@ -32,8 +31,7 @@ const main = () =>
                     }));
             })
     ])
-    .then(
-        () => 
+    .then(() => 
     {
 
         client.on('message', handleMessage); 
@@ -44,16 +42,15 @@ const main = () =>
 // checks to see if the user entered 'q'. if so, end the process.
 const checkQuit = () => 
 { 
-    process.stdin.once('data', 
-        (n) => 
-        { 
-            if(n.toString().trim() === 'q') 
-            {
-                console.log("uiting...\n");
-                process.exit(0);
-            }
-            else checkQuit(); 
-        }); 
+    process.stdin.once('data', (n) => 
+    { 
+        if(n.toString().trim() === 'q') 
+        {
+            console.log("uiting...\n");
+            client.commands.get('disconnect').disconnectAll(client).then(() => process.exit(0));
+        }
+        else checkQuit(); 
+    }); 
 };
 
 // requires in all the cool stuff in the ./commands folder (WARNING: very cool)
@@ -67,9 +64,8 @@ const loadCommands = () =>
             if(err !== null) reject(`There was a FileSystemError loading commands: ${err}`);
 
             // culls it down to js files, and iterates through them
-            files.filter(file => file.endsWith('.js')).every(
+            files.filter(file => file.endsWith('.js')).every(file => 
                 // requiring them in and then adding them to the Discord.collection.
-                file => 
                 (commandFile => client.commands.set(commandFile.name, commandFile))(require(`${commdir}/${file}`)));
             
             resolve(`Loaded commands:\n${files}\n`);
