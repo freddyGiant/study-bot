@@ -1,0 +1,22 @@
+{
+  "name": "study-bot",
+  "version": "1.0.0",
+  "description": "study-bot",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freddyGiant/study-bot.git"
+  },
+  "author": "freddyGiant",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/freddyGiant/study-bot/issues"
+  },
+  "homepage": "https://github.com/freddyGiant/study-bot#readme",
+  "dependencies": {
+    "@discordjs/opus": "^0.3.3",
+    "discord.js": "^12.5.1",
+    "get-audio-duration": "^2.0.3"
+  }
+}

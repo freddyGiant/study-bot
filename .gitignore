@@ -1,3 +1,2 @@
-*.json
-!package-lock.json
+secret.json
 node_modules

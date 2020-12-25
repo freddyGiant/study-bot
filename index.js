@@ -1,4 +1,3 @@
-const fs = require('fs');
 const Discord = require('discord.js');
 const helpers = require('./helpers.js');
 
@@ -13,7 +12,7 @@ const prefix = ';';
 const main = () => 
 {
     checkQuit();
-    console.log(`Logging in with token ${secret}...\n`)
+    console.log(`Logging in with token ${secret}...\n`);
     client.login(secret)
     .then(n => 
     {
@@ -32,16 +31,18 @@ const main = () =>
         {
             if(msg.content.startsWith(prefix) && msg.content !== prefix && !msg.author.bot)
             {
-                // split message into each argument
-                const args = msg.content.substring(1).trim().split(/\s+/);
-                const command = args.shift();
-        
+                const command = msg.content.substring(1).split(' ').shift();
+                
                 // if we have that command, get it from the collection and run its execute() with args
-                if(helpers.commands.has(command)) helpers.commands.get(command)(client, msg, args);
+                if(helpers.commands.has(command)) 
+                {
+                    console.log(`\nGot a command ${command} from user ${msg.author.name} in guild ${msg.guild}`);
+                    helpers.commands.get(command)(msg);
+                }
             }
-        }); 
+        });
     })
-    .catch(e => console.log(e));
+    .catch(console.log);
 };
 
 // checks to see if the user entered 'q'. if so, end the process.
