@@ -15,8 +15,11 @@ module.exports.getMSGArgs = (msg) =>
 
 module.exports.getMSGContent = (msg) =>
 {
-    const trimmed = msg.content.trim();
-    return trimmed.substring(trimmed.split(' ')[0].length + 1);
+    // const trimmed = msg.content.trim();
+    // return trimmed.substring(trimmed.split(' ')[0].length + 1);
+
+    const args = this.getMSGArgs(msg);
+    return args.filter(arg => !arg.startsWith('-')).join('');
 };
 
 module.exports.commandJoin = (msg) => 
@@ -38,7 +41,7 @@ module.exports.commandDisconnect = (msg, doNotifyMember = true) =>
         {
             const connectedChannel = connection.channel;
             // only disconnect if the message sender is actually in the channel
-            if(!connectedChannel.members.has(msg.author))
+            if(!connectedChannel.members.has(msg.member.id))
             {
                 console.log('Message author was not in the channel to disconnect from; aborting disconnect.');
                 response = 'You must be in the channel you are trying to disconnect me from.';
@@ -130,7 +133,7 @@ const playQueueMap = new Map();
 module.exports.commandSay = (msg) =>
 {
     const soundDir = `${dt_outDir}/${msg.id}.wav`;
-    const speech = `${msg.member.nickname} said: ${this.getMSGContent(msg)}`;
+    const speech = this.getCleanSpeech(msg);
     const guild = msg.channel.guild;
     const guildID = guild.id;
 
@@ -157,7 +160,7 @@ module.exports.commandSay = (msg) =>
         .then(() => new Promise((resolve, reject) =>
         {
             // synthesizes the voice file
-            console.log(`\nSynthesizing speech at ${soundDir}: "${this.getMSGContent(msg)}"`);
+            console.log(`\nSynthesizing speech at ${soundDir}: "${speech}"`);
             exec(`cd ${dectalkDir} & say.exe -w ${soundDir} -p [:phoneme on] "${speech}"`, (err) =>
             {
                 if(err)
@@ -182,6 +185,15 @@ module.exports.commandSay = (msg) =>
     {
         console.log(err);
     });
+};
+
+module.exports.getCleanSpeech = (msg) =>
+{
+    const anon = this.getMSGArgs(msg).includes('-a');
+    const author = `${msg.member.nickname ? msg.member.nickname : msg.author.name} said: `;
+    const content = this.getMSGContent(msg).split('').filter(char => !char.match(/\n/)).join('');
+
+    return `${anon ? '' : author}${content}`;
 };
 
 module.exports.joinChannelID = (msg, channelID, {doNotifyMember, doReject} = {doNotifyMember: true, doReject: false}) =>
@@ -239,7 +251,7 @@ module.exports.joinUser = (msg, {doNotifyMember, doReject} = {doNotifyMember: tr
 {
     const userChannel = this.findUserChannel(msg);
     if(userChannel)
-        return this.joinChannelID(msg, userChannel.id, doNotifyMember, doReject);
+        return this.joinChannelID(msg, userChannel.id, {doNotifyMember: doNotifyMember, doReject: doReject});
     else
     {
         return (doReject ? Promise.reject.bind(Promise) : Promise.resolve.bind(Promise))(`User ${msg.author} is not in a voice channel in this guild (${msg.channel.guild}).`);

@@ -36,13 +36,20 @@ const main = () =>
                 // if we have that command, get it from the collection and run its execute() with args
                 if(helpers.commands.has(command)) 
                 {
-                    console.log(`\nGot a command ${command} from user ${msg.author.name} in guild ${msg.guild}`);
+                    console.log(`\nGot a command ${command} from user ${msg.author.username} in guild ${msg.guild} [${getNow()}]`);
                     helpers.commands.get(command)(msg);
                 }
             }
         });
     })
     .catch(console.log);
+};
+
+const getNow = () =>
+{
+    const now = new Date();
+
+    return `${now.getDate()}-${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
 };
 
 // checks to see if the user entered 'q'. if so, end the process.
