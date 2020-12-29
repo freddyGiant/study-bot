@@ -15,11 +15,8 @@ module.exports.getMSGArgs = (msg) =>
 
 module.exports.getMSGContent = (msg) =>
 {
-    // const trimmed = msg.content.trim();
-    // return trimmed.substring(trimmed.split(' ')[0].length + 1);
-
     const args = this.getMSGArgs(msg);
-    return args.filter(arg => !arg.startsWith('-')).join('');
+    return args.filter(arg => !arg.startsWith('-')).join(' ');
 };
 
 module.exports.commandJoin = (msg) => 
@@ -51,6 +48,9 @@ module.exports.commandDisconnect = (msg, doNotifyMember = true) =>
             {
                 connection.once('disconnect', () =>
                 {
+                    thisQueue = playQueueMap.get(msg.channel.guild.id);
+                    if(thisQueue)
+                        thisQueue.clearQueue();
                     console.log(`Succesfully disconnected from channel ${connection.channel.name}.`);
                     response = `Disconnected from ${connection.channel.name}.`;
                     resolve();
@@ -174,7 +174,7 @@ module.exports.commandSay = (msg) =>
             });
         })),
 
-        this.joinUser(msg)
+        this.joinUser(msg, {doNotifyMember: false, doReject: true})
     ])
     .then(() => 
     {
@@ -295,6 +295,7 @@ module.exports.findConnectionInGuild = (client, guild) =>
         thisConnection = connectionIterator.next().value;
         if(thisConnection.channel.guild.id === guild.id)
             found = true;
+        i++;
     }
     return found ? thisConnection : found;
 };

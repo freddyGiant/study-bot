@@ -1,6 +1,9 @@
 # study-bot
 a bot for my got damn discord server. that is all.
 ### *todo:*
+- [ ] commandSkip
+- [ ] speakall mode
+- [ ] disconnect timeout
 - [ ] *heroku integration?*
 - [ ] *implement commandHelp?*
 - [x] expect two hotfixes. no more because by that time i will have moved on to another project.

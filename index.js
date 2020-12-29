@@ -49,7 +49,7 @@ const getNow = () =>
 {
     const now = new Date();
 
-    return `${now.getDate()}-${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+    return `${now.getDate()}-${now.getMonth()}-${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
 };
 
 // checks to see if the user entered 'q'. if so, end the process.
