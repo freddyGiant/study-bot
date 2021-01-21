@@ -142,6 +142,7 @@ module.exports.commandSay = (msg) =>
         playQueueMap.set(guildID, new playQueue(msg.client, guild));
 
     Promise.all([
+        // BUG: this still synthesizes speech when the user is already in the channel.
         promisify(fs.access)(dt_outDir)
         .then(Promise.resolve.bind(Promise), (err) =>
         {
@@ -190,7 +191,7 @@ module.exports.commandSay = (msg) =>
 module.exports.getCleanSpeech = (msg) =>
 {
     const anon = this.getMSGArgs(msg).includes('-a');
-    const author = `${msg.member.nickname ? msg.member.nickname : msg.author.name} said: `;
+    const author = `${msg.member.nickname ? msg.member.nickname : msg.author.username} said: `;
     const content = this.getMSGContent(msg).split('').filter(char => !char.match(/\n/)).join('');
 
     return `${anon ? '' : author}${content}`;
