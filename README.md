@@ -1,5 +1,5 @@
 # study-bot
-a bot for my got damn discord server. that is all.
+a bot for my got d*mn discord server. that is all.
 ### *todo:*
 - [ ] commandSkip
 - [ ] speakall mode
@@ -8,7 +8,7 @@ a bot for my got damn discord server. that is all.
 - [ ] *implement commandHelp?*
 - [x] expect two hotfixes. no more because by that time i will have moved on to another project.
 - [x] implement ~~dectalk man~~john madden
-- ~~names if kyle lets me~~
+- [ ]~~names if kyle lets me~~
 - [x] study for finals
 
 #### version 1.0.1 ~
