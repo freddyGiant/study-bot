@@ -1,15 +1,18 @@
 # study-bot
-Studybot is a Discord bot alternative to your voice!
-Speak in Discord voice channels without your voice or a mic. (Also, it sounds funny *[and it can sing]*)
+Studybot can read out your discord messages in the voice channels of your choosing!
+Speak in Discord voice channels without your voice or a mic, and keep the convo in sync without having to keep glancing at your voice-text channel.
+No more semi-verbal awkwardness! (Also, it sounds funny *[and it can sing]*)
 
-`*commands:*
+```
+*commands:*
 
 ;join <?channel-id>
   connects to the voice channel of your choice or the one you are in if no parameters are given
   
 ;say <message>
   will say the message prepended with "[nickname of user] says:", or "[username of user] says:" if the user is not using a nickname on that server in DECTalk's default voice. Phoneme mode is on.
- -a - studybot will not say the nickname or username of the message author`
+ -a - studybot will not say the nickname or username of the message author
+ ```
 
 Studybot is a Node.js app. It interacts with discord through [Discord.js](https://discord.js.org/#/) and uses [DECTalk](https://en.wikipedia.org/wiki/DECtalk) for its voice synthesis.
 
