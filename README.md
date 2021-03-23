@@ -10,7 +10,8 @@ No more semi-verbal awkwardness! (Also, it sounds funny *[and it can sing]*)
   connects to the voice channel of your choice or the one you are in if no parameters are given
   
 ;say <message>
-  will say the message prepended with "[nickname of user] says:", or "[username of user] says:" if the user is not using a nickname on that server in DECTalk's default voice. Phoneme mode is on.
+  will say the message prepended with "[nickname of user] says:", or "[username of user] says:" if the user is not using a nickname on that server in 
+  DECTalk's default voice. Phoneme mode is on.
  -a - studybot will not say the nickname or username of the message author
  ```
 
