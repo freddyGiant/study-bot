@@ -18,12 +18,12 @@ No more semi-verbal awkwardness! (Also, it sounds funny *[and it can sing]*)
 Studybot is a Node.js app. It interacts with discord through [Discord.js](https://discord.js.org/#/) and uses [DECTalk](https://en.wikipedia.org/wiki/DECtalk) for its voice synthesis.
 
 ### Dependencies
-[Discord.js](https://discord.js.org/#/)
-  for interfacing with Discord's bot API
-[get-audio-duration](https://www.npmjs.com/package/get-audio-duration)
-  for... getting audio duration (helps with queueing up each speech request)
-DECTalk *(built-in installation)*
-  say.exe (command line app as a subprocess) is used for the speech synthesis
+[Discord.js](https://discord.js.org/#/)    
+  for interfacing with Discord's bot API    
+[get-audio-duration](https://www.npmjs.com/package/get-audio-duration)    
+  for... getting audio duration (helps with queueing up each speech request)    
+DECTalk *(built-in installation)*    
+  say.exe (command line app as a subprocess) is used for the speech synthesis    
 
 ### *Roadmap:*
 - [ ] better emoji support
