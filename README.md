@@ -12,7 +12,10 @@ No more semi-verbal awkwardness! (Also, it sounds funny *[and it can sing]*)
 ;say <message>
   will say the message prepended with "[nickname of user] says:", or "[username of user] says:" if the 
   user is not using a nickname on that server in DECTalk's default voice. Phoneme mode is on.
- -a - studybot will not say the nickname or username of the message author
+ -a - studybot will not say the nickname or username of the message author    
+
+;disconnect
+  will disconnect from the channel that that it is in if it is in one
  ```
 
 Studybot is a Node.js app. It interacts with discord through [Discord.js](https://discord.js.org/#/) and uses [DECTalk](https://en.wikipedia.org/wiki/DECtalk) for its voice synthesis.
